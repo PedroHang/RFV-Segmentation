@@ -4,6 +4,8 @@ This Streamlit application performs RFV (Recency, Frequency, Value) analysis on 
 
 [URL to the Web App hosting the RFV Analysis](https://rfv-segmentation.onrender.com/)
 
+(It might take up to 60 seconds for the web page to load if it stood inactive for a long period)
+
 ## Features
 
 - **Data Upload:** Users can upload a CSV file containing their purchase data. The input data must follow the format of the provided `data.csv` file.
