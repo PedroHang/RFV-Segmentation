@@ -100,6 +100,28 @@ if uploaded_file is not None:
      with col2:
          st.write("RFV with Quartiles", df_RFV.head())
 
+     df_RFV['Highlight'] = df_RFV['RFV_Score'].apply(lambda x: 'Highlight' if x in ['AAA', 'DDD'] else 'Other')
+
+     # Generate the pairplot
+     fig = px.scatter_matrix(
+     df_RFV,
+     dimensions=['Recencia', 'Frequencia', 'Valor'],
+     color='Highlight',
+     symbol='RFV_Score',  # This adds different symbols for different RFV_Score values
+     title="Pairplot of Recency, Frequency, and Value with Highlighted RFV Tiers",
+     labels={'Recencia': 'Recency', 'Frequencia': 'Frequency', 'Valor': 'Value'}
+     )
+
+     # Customize the color scale to ensure the tiers are clearly visible
+     fig.update_traces(diagonal_visible=False)
+
+     # Update color and opacity to make 'Other' less prominent
+     fig.update_traces(marker=dict(size=5, opacity=0.5), selector=dict(marker_color='rgba(128,128,128,0.5)'))
+     fig.update_traces(marker=dict(size=10, opacity=1), selector=dict(marker_color='rgba(0,0,255,1)'))
+
+     # Show the plot
+     st.plotly_chart(fig)
+
      df_RFV.to_excel('./output/RFV.xlsx')
 
      st.success("RFV analysis completed. The result is saved as RFV.xlsx.")
